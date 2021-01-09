@@ -24,7 +24,7 @@
 
     /***** + *****/
 	$('.cmd[data-cmd_id=#id#] .bt_plus').on('click', function () {
-      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) + 1 ).toFixed(1) );
+      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) + 1 ).toFixed(0) );
       	setTimeout(sbjs_updateIcon#id#, 50);
 
 		clearTimeout(sbjs_Timer#id#);
@@ -33,7 +33,7 @@
 
 	/***** - *****/
     $('.cmd[data-cmd_id=#id#] .bt_minus').on('click', function () {
-      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) - 1 ).toFixed(1) );
+      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) - 1 ).toFixed(0) );
       	setTimeout(sbjs_updateIcon#id#, 50);
 
 		clearTimeout(sbjs_Timer#id#);
