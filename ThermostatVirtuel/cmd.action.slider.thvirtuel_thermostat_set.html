@@ -19,12 +19,12 @@
 	var sbjs_Timer#id#;
 
     /***** Init *****/
-    $('#valeur#id#').text( parseFloat(#state#).toFixed(0) );
+    $('#valeur#id#').text( parseInt(#state#).toFixed(0) );
     setTimeout(sbjs_updateIcon#id#, 50);
 
     /***** + *****/
 	$('.cmd[data-cmd_id=#id#] .bt_plus').on('click', function () {
-      $('#valeur#id#').text( parseFloat(parseFloat($('#valeur#id#').text()) + 1 ).toFixed(1) );
+      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) + 1 ).toFixed(1) );
       	setTimeout(sbjs_updateIcon#id#, 50);
 
 		clearTimeout(sbjs_Timer#id#);
@@ -33,7 +33,7 @@
 
 	/***** - *****/
     $('.cmd[data-cmd_id=#id#] .bt_minus').on('click', function () {
-      $('#valeur#id#').text( parseFloat(parseFloat($('#valeur#id#').text()) - 1 ).toFixed(1) );
+      $('#valeur#id#').text( parseInt(parseInt($('#valeur#id#').text()) - 1 ).toFixed(1) );
       	setTimeout(sbjs_updateIcon#id#, 50);
 
 		clearTimeout(sbjs_Timer#id#);
@@ -42,7 +42,7 @@
 
 	/***** Mise à jour de l'icone en fonction de la température *****/
     function sbjs_updateIcon#id#() {
-      var sbjs_temp#id# = parseFloat( $('#valeur#id#').text() );
+      var sbjs_temp#id# = parseInt( $('#valeur#id#').text() );
 
       if ( sbjs_temp#id# < 18 )
           $('#sbjs_icon#id#').html('<i class="icon jeedom-thermo-froid"></i>');
@@ -56,7 +56,7 @@
 	function sbjs_Save#id#() {
 		jeedom.cmd.execute({
         	id: '#id#',
-        value: { slider: parseFloat( $('#valeur#id#').text() ) }
+        value: { slider: parseInt( $('#valeur#id#').text() ) }
         });
 	}
   </script>
