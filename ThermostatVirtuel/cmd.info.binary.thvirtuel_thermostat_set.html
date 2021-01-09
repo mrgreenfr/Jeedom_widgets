@@ -1,5 +1,5 @@
 <div style="width:25px;min-height:20px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="#id#" title="#collectDate#">
-    <div style="font-weight: bold;font-size : 12px;#hideCmdName#">#name_display#</div>
+    <div style="font-weight: bold;font-size : 12px;" class="#hide_name#">#name_display#</div>
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 100 100" enable-background="new 0 0 500 500" xml:space="preserve" class="fan#id#" style="animation-duration: 0s;">
     <g>
         <path class="col#id#" d="M62.841,46.809c4.031-1.447,10.757-2.366,17.216,1.222c10.979,6.097,21.299-3.18,19.797-13.452
@@ -53,16 +53,32 @@
   }
 </style>
 <script>
+  function isThemeLight() {
+    if ($('body')[0].hasAttribute('data-theme')) {
+      if ($('body').attr('data-theme').endsWith('Light')) return true;
+    }
+    return false;
+  }
+
   jeedom.cmd.update['#id#'] = function(_options){
-    $('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate)
+    $('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectÃ©e le '+_options.collectDate)
 
     var val = _options.display_value;
-    if (val == 1) {var anim = "1.5s"; var col = "";}
-    else {var anim = "0.0s"; var col = "grey";}
+    if (val==1) {
+      var anim = "1.5s";
+      var col = "";
+      if (isThemeLight()) {
+        col='#5a5a5a';
+      } else {
+        col='white';
+      }
+    }	else {
+      var anim = "0.0s";
+      var col = "grey";
+    }
 
     $(".fan#id#").css({"-webkit-animation-duration": anim,"-moz-animation-duration": anim});
     $(".col#id#").css('fill', col);
-
   }
   jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
 </script>

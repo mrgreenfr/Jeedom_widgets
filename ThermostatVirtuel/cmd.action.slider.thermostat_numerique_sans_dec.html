@@ -1,0 +1,63 @@
+<div class="cmd" data-type="action" data-subtype="slider" data-cmd_id="#id#" style="min-width:180px;min-height:60px;font-size: 10;" >
+  <center>
+    <div class="btn-group">
+      <div style="width: 100%; text-align:center;">
+        <div style="float: left; height: 60px;margin-top: 5px;">
+          <span style="font-size: 4em; margin-right: 10px;" id="sbjs_icon#id#"></span>
+          <span style="font-size: 4em; font-weight: bold;" id="valeur#id#"></span>
+          <span style="font-size: 16px;">#unite#</span>
+        </div>
+        <div style="float: left; margin-top: 0px; width: 35px; height: 60px; font-size: 2em; text-align: center; line-height: 30px;">
+          <a style="cursor: pointer;" class="btn-sm bt_plus" ><i class="fa fa-2x fa-plus-square"></i></a>
+          <br />
+          <a style="cursor: pointer;" class="btn-sm bt_minus" ><i class="fa fa-2x fa-minus-square"></i></a>
+        </div>
+      </div>
+    </div>
+  </center>
+  <script>
+	var sbjs_Timer#id#;
+
+    /***** Init *****/
+    $('#valeur#id#').text( parseFloat(#state#).toFixed(0) );
+    setTimeout(sbjs_updateIcon#id#, 50);
+
+    /***** + *****/
+	$('.cmd[data-cmd_id=#id#] .bt_plus').on('click', function () {
+      $('#valeur#id#').text( parseFloat(parseFloat($('#valeur#id#').text()) + 1 ).toFixed(1) );
+      	setTimeout(sbjs_updateIcon#id#, 50);
+
+		clearTimeout(sbjs_Timer#id#);
+		sbjs_Timer#id# = setTimeout(sbjs_Save#id#, 1500);
+	});
+
+	/***** - *****/
+    $('.cmd[data-cmd_id=#id#] .bt_minus').on('click', function () {
+      $('#valeur#id#').text( parseFloat(parseFloat($('#valeur#id#').text()) - 1 ).toFixed(1) );
+      	setTimeout(sbjs_updateIcon#id#, 50);
+
+		clearTimeout(sbjs_Timer#id#);
+		sbjs_Timer#id# = setTimeout(sbjs_Save#id#, 1500);
+	});
+
+	/***** Mise à jour de l'icone en fonction de la température *****/
+    function sbjs_updateIcon#id#() {
+      var sbjs_temp#id# = parseFloat( $('#valeur#id#').text() );
+
+      if ( sbjs_temp#id# < 18 )
+          $('#sbjs_icon#id#').html('<i class="icon jeedom-thermo-froid"></i>');
+      	else if ( sbjs_temp#id# <= 23 )
+          $('#sbjs_icon#id#').html('<i class="icon jeedom-thermo-moyen"></i>');
+        else
+          $('#sbjs_icon#id#').html('<i class="icon jeedom-thermo-chaud"></i>');
+    }
+
+    /***** Envoi de la nouvelle consigne *****/
+	function sbjs_Save#id#() {
+		jeedom.cmd.execute({
+        	id: '#id#',
+        value: { slider: parseFloat( $('#valeur#id#').text() ) }
+        });
+	}
+  </script>
+</div>
